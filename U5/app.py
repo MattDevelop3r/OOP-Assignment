@@ -55,15 +55,12 @@ def registrarPaquete(idSucursal):
             db.session.commit()
             flash(f'Paquete registrado en la sucursal {idSucursal}', 'success')
             return redirect(url_for('panelDespachante', idSucursal=idSucursal))
-        except KeyError as e:
-            db.session.rollback()
-            flash(f'Error: Campo faltante en el formulario - {str(e)}', 'error')
         except ValueError as e:
             db.session.rollback()
-            flash(f'Error: El valor no es valido - {str(e)}', 'error')
+            flash(f'Error: El valor no es valido - {e}', 'error')
         except Exception as e:
             db.session.rollback()
-            flash(f'Error al registrar el paquete: {str(e)}', 'error')
+            flash(f'Error al registrar el paquete: {e}', 'error')
     
     return render_template('registrar_paquete.html', sucursal=sucursal)
 
@@ -71,7 +68,6 @@ def registrarPaquete(idSucursal):
 def generarNumeroTransporte():
     ultimoTransporte = Transporte.query.order_by(Transporte.numerotransporte.desc()).first()
     if ultimoTransporte:
-        print(ultimoTransporte.numerotransporte)
         ultimoNumero = ultimoTransporte.numerotransporte
         nuevoNumero = ultimoNumero + 1
         print(f"el ultimo numero fue: {ultimoNumero} y el nuevo: {nuevoNumero}")
@@ -104,7 +100,7 @@ def registrarSalida(idSucursal):
                 flash('Salida de transporte registrada', 'success')
             except Exception as e:
                 db.session.rollback()
-                flash(f'Error al registrar el transporte: {str(e)}', 'error')
+                flash(f'Error al registrar el transporte: {e}', 'error')
         else:
             if not idSucursal:
                 flash('Seleccione una sucursal de destino', 'warning')
@@ -133,7 +129,7 @@ def registrarLlegada(idSucursal):
                 return redirect(url_for('panelDespachante', idSucursal=idSucursal))
             except Exception as e:
                 db.session.rollback()
-                flash(f'Error al registrar la llegada: {str(e)}', 'error')
+                flash(f'Error al registrar la llegada: {e}', 'error')
     
     transportesPendientes = Transporte.query.filter_by(fechahorallegada=None, idsucursal=idSucursal).all()
     return render_template('registrar_llegada.html', sucursal=sucursal, transportes=transportesPendientes)
@@ -144,7 +140,7 @@ def testDb():
         sucursales = Sucursal.query.all()
         return f"Se conecto a la base de datos. Numero de sucursales: {len(sucursales)}"
     except Exception as e:
-        return f"Error de conexion con la base de datos: {str(e)}"
+        return f"Error de conexion con la base de datos: {e}"
 
 if __name__ == '__main__':
     with app.app_context():

@@ -8,12 +8,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenido a LogiPack</h1>
+        <h1>LogiPack</h1>
         <h2>Acceso Despachante</h2>
         <form method="POST">
             <label for="sucursal">Seleccione su sucursal:</label>
             <select name="sucursal" id="sucursal" required>
-                <option value="">-- Seleccione una sucursal --</option>
+                <option value=""> Seleccione una sucursal </option>
                 {% for sucursal in sucursales %}
                     <option value="{{ sucursal.id }}">{{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}</option>
                 {% endfor %}
