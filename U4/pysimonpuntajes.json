@@ -1,0 +1,26 @@
+[
+    {
+        "jugador": "Paco",
+        "fecha": "2024-06-24",
+        "hora": "11:38:04",
+        "puntuacion": 5
+    },
+    {
+        "jugador": "Paco",
+        "fecha": "2024-06-24",
+        "hora": "11:39:10",
+        "puntuacion": 8
+    },
+    {
+        "jugador": "Diego",
+        "fecha": "2024-06-24",
+        "hora": "11:39:37",
+        "puntuacion": 3
+    },
+    {
+        "jugador": "Santy123",
+        "fecha": "2024-06-24",
+        "hora": "11:41:05",
+        "puntuacion": 7
+    }
+]
