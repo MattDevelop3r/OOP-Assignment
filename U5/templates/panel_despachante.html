@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Despachante - LogiPack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Despachante</h1>
+        <h2>Sucursal: {{ sucursal.numero }} - {{ sucursal.provincia }}, {{ sucursal.localidad }}</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('registrarPaquete', idSucursal=sucursal.id) }}" class="btn">Registrar Paquete</a></li>
+                <li><a href="{{ url_for('registrarSalida', idSucursal=sucursal.id) }}" class="btn">Registrar Salida de Transporte</a></li>
+                <li><a href="{{ url_for('registrarLlegada', idSucursal=sucursal.id) }}" class="btn">Registrar Llegada de Transporte</a></li>
+            </ul>
+        </nav>
+        
+        <a href="{{ url_for('accesoDespachante') }}" class="btn btn-secondary">Cambiar de Sucursal</a>
+    </div>
+</body>
+</html>

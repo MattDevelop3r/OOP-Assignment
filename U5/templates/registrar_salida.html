@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Salida de Transporte - LogiPack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Salida de Transporte</h1>
+        <h2>Sucursal: {{ sucursal.numero }} - {{ sucursal.provincia }}, {{ sucursal.localidad }}</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <label for="sucursal_destino">Seleccione la sucursal destino:</label>
+            <select name="sucursal_destino" id="sucursal_destino" required>
+                <option value="">-- Seleccione una sucursal --</option>
+                {% for sucursal in sucursales %}
+                    <option value="{{ sucursal.id }}">{{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}</option>
+                {% endfor %}
+            </select>
+            
+            <h3>Seleccione los paquetes para el transporte:</h3>
+            {% if paquetes %}
+                <div class="package-list">
+                    {% for paquete in paquetes %}
+                        <div class="package-item">
+                            <div class="checkbox-group">
+                                <input type="checkbox" name="paquetes" id="paquete_{{ paquete.id }}" value="{{ paquete.id }}">
+                                <label for="paquete_{{ paquete.id }}" class="checkbox-label">{{ paquete.numeroenvio }} - {{ paquete.dirdestinatario }}</label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay paquetes disponibles para el transporte.</p>
+            {% endif %}
+            
+            <button type="submit" class="btn">Registrar Transporte</button>
+        </form>
+        
+        <a href="{{ url_for('panelDespachante', idSucursal=sucursal.id) }}" class="btn btn-secondary">Volver al Panel</a>
+    </div>
+</body>
+</html>

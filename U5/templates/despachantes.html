@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Despachante - LogiPack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a LogiPack</h1>
+        <h2>Acceso Despachante</h2>
+        <form method="POST">
+            <label for="sucursal">Seleccione su sucursal:</label>
+            <select name="sucursal" id="sucursal" required>
+                <option value="">-- Seleccione una sucursal --</option>
+                {% for sucursal in sucursales %}
+                    <option value="{{ sucursal.id }}">{{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn">Acceder</button>
+        </form>
+    </div>
+</body>
+</html>
