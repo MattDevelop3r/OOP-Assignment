@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Paquete - LogiPack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') if theme == 'light' else url_for('static', filename='css/styles-dark.css') }}">
+</head>
+<body>
+    <button id="theme-toggle" onclick="window.location.href='{{ url_for('toggle_theme') }}'">
+        {% if theme == 'dark' %}☀️{% else %}🌙{% endif %}
+    </button>
+    <div class="container">
+        <h1>Registrar Nuevo Paquete</h1>
+        <h2>Sucursal: {{ sucursal.numero }} - {{ sucursal.provincia }}, {{ sucursal.localidad }}</h2>
+        
+        <form method="POST">
+            <label for="peso">Peso del paquete (kg):</label>
+            <input type="number" step="0.1" name="peso" id="peso" required>
+            
+            <label for="nomdestinatario">Nombre del destinatario:</label>
+            <input type="text" name="nomdestinatario" id="nomdestinatario" required>
+            
+            <label for="dirdestinatario">Dirección del destinatario:</label>
+            <input type="text" name="dirdestinatario" id="dirdestinatario" required>
+
+            <button type="submit" class="btn">Registrar Paquete</button>
+        </form>
+        
+        <a href="{{ url_for('panelDespachante', idSucursal=sucursal.id) }}" class="btn btn-secondary">Volver al Panel</a>
+    </div>
+</body>
+</html>

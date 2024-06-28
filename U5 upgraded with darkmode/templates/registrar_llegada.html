@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Llegada de Transporte - LogiPack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') if theme == 'light' else url_for('static', filename='css/styles-dark.css') }}">
+</head>
+<body>
+    <button id="theme-toggle" onclick="window.location.href='{{ url_for('toggle_theme') }}'">
+        {% if theme == 'dark' %}☀️{% else %}🌙{% endif %}
+    </button>
+    <div class="container">
+        <h1>Registrar Llegada de Transporte</h1>
+        <h2>Sucursal: {{ sucursal.numero }} - {{ sucursal.provincia }}, {{ sucursal.localidad }}</h2>
+        
+        <form method="POST">
+            <label for="transporte">Seleccione el transporte que ha llegado:</label>
+            <select name="transporte" id="transporte" required>
+                <option value=""> Seleccione un transporte </option>
+                {% for transporte in transportes %}
+                    <option value="{{ transporte.id }}">{{ transporte.numerotransporte }} - {{ transporte.fechahorasalida }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit" class="btn">Registrar Llegada</button>
+        </form>
+        
+        <a href="{{ url_for('panelDespachante', idSucursal=sucursal.id) }}" class="btn btn-secondary">Volver al Panel</a>
+    </div>
+</body>
+</html>
